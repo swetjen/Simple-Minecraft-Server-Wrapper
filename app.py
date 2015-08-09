@@ -9,7 +9,7 @@ import urllib
 # Global Settings
 
 minecraft_version_url = 'https://s3.amazonaws.com/Minecraft.Download/versions/versions.json'
-check_for_new_versions_frequency = 5 # every hour
+check_for_new_versions_frequency = 3600 # every hour
 mc_server = 'minecraft_server.jar' # server file name
 current_ver = ''
 run = 0
