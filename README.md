@@ -18,4 +18,3 @@ If there's interest from folks I'll consider updating it with more features.
 - Contintually checks for an updated snapshot server even while the Minecraft server is running.
 - Gracefully stops the server when a new version is detected.
 - Downloads the latest snapshop and restarts the server.
-- 
