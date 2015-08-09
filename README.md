@@ -1,5 +1,3 @@
-# Simple-Minecraft-Server-Wrapper
-
 # Overview
 
 Simple Minecraft Server Wrapper (SMSW) keeps your server up to date with the current snapshot version of Minecraft from Mojang.  Its less than 100 lines of code and designed to be super simple & lightweight.
