@@ -9,54 +9,75 @@ import urllib
 # Global Settings
 
 minecraft_version_url = 'https://s3.amazonaws.com/Minecraft.Download/versions/versions.json'
-check_for_new_versions_frequency = 3600 # every hour
+check_for_new_versions_frequency = 15 # every hour
 mc_server = 'minecraft_server.jar' # server file name
+current_ver = ''
+run = 0
 
-#
 
 # Download the latest version JSON file for Minecraft and see what the latest version is
 def get_version():
 	source = urllib2.urlopen(minecraft_version_url)
 	data = json.load(source)
 	ver = data["latest"]["snapshot"]
-	print 'The current verison of Minecraft Snapshopt is', ver
+	print '--- The current verison of Minecraft Snapshopt is', ver
 	return ver
 
-def startup(current_ver):
-	latest_ver = get_version
-	print latest_ver
-	if len(current_ver) < 1:
-		download_server(latest_ver)
-		current_ver = latest_ver
-		return
+# Checks if the latest version matches current version.
+def up_to_date(current_ver, latest_ver):
+	if current_ver != latest_ver:
+		print '--- New version detected.'
+		return False
+	else:
+		print '--- Up to date.'
+		return True
 
+# Downloads and saves the latest minecraft server.
 def download_server(version):
 	jarfile = urllib.URLopener()
-	print "Im downloading", version
+	print "--- Downloading", version
 	jarfile.retrieve("https://s3.amazonaws.com/Minecraft.Download/versions/"+ version + "/minecraft_server." + version + ".jar", mc_server)
-	print "Download complete."
+	print "--- Download complete."
 
-
+# Start the server
 def start_server():
-	if status == 1:
-		raise 'Sever already running'
-	else:
-		status = 1
-		mc = subprocess.Popen(['java -jar ' + mc_server], shell=True)
+	global run
+	run = 1
+	mc = subprocess.Popen(['java -jar ' + mc_server], shell=True)
 	return
 
+# Stop the server
 def stop_server():
-	status = 0
-	mc.terminate()
+	global run
+	print '--- Stopping Server.'
+	# mc.terminate()
 	time.sleep(5)
+	print '--- Server stopped'
+	run = 0
 	return
 
-#
-# MAIN PROGRAM
-#
+# Supervisor program
 
 def main():
-	startup(current_ver)
+	global current_ver
+	global run
+	print '*' * 40
+	latest_ver = str(get_version())
+	if current_ver != latest_ver:
+		download_server(latest_ver)
+		current_ver = latest_ver
+	if run == 0:
+		print '--- Starting Run'
+		# simulate new version
+		# start server
+		run = 1 # kill this after test
+		while run == 1:
+			print '--- Checking for new versions in ' + str(check_for_new_versions_frequency) + ' seconds.'
+			time.sleep(check_for_new_versions_frequency)
+			print '--- Checking for a new version...'
+			if up_to_date(current_ver, latest_ver) == False:
+				stop_server()
+				main()
 
 
 if __name__ == '__main__':
