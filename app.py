@@ -1,4 +1,10 @@
-# Simple Minecraft Server Wrapper for snapshots
+# Simple Minecraft Server Wrapper for snapshots.
+# ======
+# Finds the latest snapshot version, downloads and runs it.  Then 
+# every hour it checks for a new snapshot release.  If it finds one,
+# it stops the server, downloads the update and restarts with the 
+# newest version.
+
 
 import time
 import subprocess
@@ -11,6 +17,8 @@ import urllib
 minecraft_version_url = 'https://s3.amazonaws.com/Minecraft.Download/versions/versions.json'
 check_for_new_versions_frequency = 3600 # every hour
 mc_server = 'minecraft_server.jar' # server file name
+args = '-Xmx1024M -Xms1024M'
+args2 = 'nogui'
 current_ver = ''
 run = 0
 
@@ -52,7 +60,7 @@ def main():
 	if run == 0:
 		print '--- Starting Server.'
 		run = 1
-		mc = subprocess.Popen(['java -jar ' + mc_server], shell=True)
+		mc = subprocess.Popen(['java -jar '+ args + ' ' + mc_server + ' ' + args2], shell=True)
 		time.sleep(5)
 		while run == 1:
 			print '--- Checking for new versions in ' + str(check_for_new_versions_frequency) + ' seconds.'
