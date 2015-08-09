@@ -2,6 +2,8 @@
 
 Simple Minecraft Server Wrapper (SMSW) keeps your server up to date with the current snapshot version of Minecraft from Mojang.  Its less than 100 lines of code and designed to be super simple & lightweight.
 
+I've tested this under Mac OSX.  It should work fine on most *nix distributions.  Not tested on windows.
+
 If there's interest from folks I'll consider updating it with more features.
 
 # Installation
