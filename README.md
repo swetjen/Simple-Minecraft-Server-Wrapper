@@ -9,12 +9,12 @@ If there's interest from folks I'll consider updating it with more features.
 # Installation
 
 1. Download app.py to your minecraft server folder.
-2. Make sure you have a correct eula.txt file accepting the license agreement.
-3. run from terminal using 'python app.py'
+2. If running the server for the firset time, have a correct eula.txt file (accept the license agreement).
+3. From terminal run by typing 'python app.py'
 
 # Features
 
 - Checks for the latest Minecraft snaphsot version from Mojang's servers
-- Contintually checks for an updated snapshot server even while the Minecraft server is running.
+- While the server it checks for an updated snapshot in the background.
 - Gracefully stops the server when a new version is detected.
 - Downloads the latest snapshop and restarts the server.
