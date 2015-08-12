@@ -35,7 +35,7 @@ def get_version():
 def up_to_date(current_ver):
 	temp_ver = str(get_version())
 	print '--- The latest version of Minecraft is ' + temp_ver + '.'
-	if current_ver != temp_ver:
+	if current_ver != temp_ver:	s
 		print '--- New version detected.'
 		return False
 	else:
@@ -55,7 +55,7 @@ def main():
 	global current_ver
 	global run
 	print '*' * 40
-	print '* Simple Minecraft Server Wrapper
+	print '* Simple Minecraft Server Wrapper'
 	print '*' * 40
 	latest_ver = str(get_version())
 	if current_ver != latest_ver:
