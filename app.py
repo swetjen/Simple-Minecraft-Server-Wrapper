@@ -34,7 +34,7 @@ def get_version():
 # Checks if the latest version matches current version.
 def up_to_date(current_ver):
 	temp_ver = str(getversion())
-	print '--- The latest version of Minecraft is ' temp_ver + '.'
+	print '--- The latest version of Minecraft is ' + temp_ver + '.'
 	if current_ver != temp_ver:
 		print '--- New version detected.'
 		return False
