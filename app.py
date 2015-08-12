@@ -68,7 +68,7 @@ def main():
 			print '--- Checking for new versions in ' + str(check_for_new_versions_frequency) + ' seconds.'
 			time.sleep(check_for_new_versions_frequency)
 			print '--- Checking for a new version...'
-			if up_to_date(current_ver, latest_ver) == False:
+			if up_to_date(current_ver) == False:
 				mc.terminate()
 				run = 0
 				time.sleep(5)
