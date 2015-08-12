@@ -18,3 +18,4 @@ If there's interest from folks I'll consider updating it with more features.
 - While the server is running, checks for an updated snapshot in the background.
 - Gracefully stops the server when a new version is detected.
 - Automatically downloads the latest snapshop and restarts the server with the new version.
+- Lightweight.  

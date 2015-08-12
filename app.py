@@ -1,8 +1,8 @@
 # Simple Minecraft Server Wrapper for snapshots.
 # ======
-# Finds the latest snapshot version, downloads and runs it.  Then 
+# Finds the latest snapshot version, downloads and runs it.  Then
 # every hour it checks for a new snapshot release.  If it finds one,
-# it stops the server, downloads the update and restarts with the 
+# it stops the server, downloads the update and restarts with the
 # newest version.
 
 
@@ -32,8 +32,10 @@ def get_version():
 	return ver
 
 # Checks if the latest version matches current version.
-def up_to_date(current_ver, latest_ver):
-	if current_ver != latest_ver:
+def up_to_date(current_ver):
+	temp_ver = str(getversion())
+	print '--- The latest version of Minecraft is ' temp_ver + '.'
+	if current_ver != temp_ver:
 		print '--- New version detected.'
 		return False
 	else:
@@ -76,7 +78,3 @@ def main():
 # Start when run.
 if __name__ == '__main__':
 	main()
-
-
- 
-
