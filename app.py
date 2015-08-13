@@ -17,7 +17,7 @@ import urllib
 minecraft_version_url = 'https://s3.amazonaws.com/Minecraft.Download/versions/versions.json'
 check_for_new_versions_frequency = 3600 # every hour
 mc_server = 'minecraft_server.jar' # server file name
-args = '-Xmx1024M -Xms1024M'
+args = '-Xmx4028M -Xms4028M'
 args2 = 'nogui'
 current_ver = ''
 run = 0
