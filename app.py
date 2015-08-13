@@ -5,6 +5,7 @@
 # it stops the server, downloads the update and restarts with the
 # newest version.
 
+# Test commit dyonak
 
 import time
 import subprocess
