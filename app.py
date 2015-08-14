@@ -12,32 +12,31 @@ import subprocess
 import json
 import urllib2
 import urllib
-import sys
-import getopt
+import argparse
 
 # Global Settings
 
 minecraft_version_url = 'https://s3.amazonaws.com/Minecraft.Download/versions/versions.json'
 check_for_new_versions_frequency = 3600 # every hour
 mc_server = 'minecraft_server.jar' # server file name
-memmin = 1
-memmax = 1
 args2 = 'nogui'
 current_ver = ''
 run = 0
 
-
+# Process command line arguments for memory settings
 def process_args():
-    myopts, args = getopt.getopt(sys.argv[1:],"i:o:")
-    ###############################
-    # o == option
-    # a == argument passed to the o
-    ###############################
-    for o, a in myopts:
-        if o == '-memmin':
-            memmin=a
-        elif o == '-memmax':
-            memmax=a
+	global results
+	parser = argparse.ArgumentParser(description="Simple Minecraft Server Wrapper")
+	parser.add_argument("-m", action='store', dest='memmin',
+		help="Sets the minimum/initial memory usage for the Mincraft server in GB (ex: 1, 2, 3, 4)",
+		 type=int, default=1)
+	parser.add_argument("-x", action='store', dest='memmax',
+		help="Sets the minimum/initial memory usage for the Mincraft server in GB (ex: 1, 2, 3, 4)",
+		 type=int, default=1)
+	results = parser.parse_args()
+
+	print "---MEMORY - Min: %s Max: %s" % (results.memmin, results.memmax)
+   	return
 
 
 # Download the latest version JSON file for Minecraft and see what the latest version is
@@ -45,7 +44,7 @@ def get_version():
 	source = urllib2.urlopen(minecraft_version_url)
 	data = json.load(source)
 	ver = data["latest"]["snapshot"]
-	print '--- The latest verison of Minecraft Snapshopt is', ver
+	print '--- The latest version of Minecraft Snapshopt is', ver
 	return ver
 
 # TODO - Implement function to determine currently installed version
@@ -75,6 +74,7 @@ def download_server(version):
 
 # Supervisor program
 def main():
+	process_args()
 	global current_ver
 	global run
 	print '*' * 40
@@ -87,7 +87,8 @@ def main():
 	if run == 0:
 		print '--- Starting Server.'
 		run = 1
-		command = 'java -jar ' + '-Xms' + memmin + 'G' + '-Xmx' + memmax + 'G' + ' ' + mc_server + ' ' + args2
+		command = 'java -jar -Xms' + str(results.memmin) + 'G -Xmx' + str(results.memmax) + 'G ' + mc_server + ' ' + args2
+		print '--- Using command: ' + command;
 		mc = subprocess.Popen(command, shell=True)
 		time.sleep(5)
 		while run == 1:
