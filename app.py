@@ -12,16 +12,32 @@ import subprocess
 import json
 import urllib2
 import urllib
+import sys
+import getopt
 
 # Global Settings
 
 minecraft_version_url = 'https://s3.amazonaws.com/Minecraft.Download/versions/versions.json'
 check_for_new_versions_frequency = 3600 # every hour
 mc_server = 'minecraft_server.jar' # server file name
-args = '-Xmx1024M -Xms1024M'
+memmin = 1
+memmax = 1
 args2 = 'nogui'
 current_ver = ''
 run = 0
+
+
+def process_args():
+    myopts, args = getopt.getopt(sys.argv[1:],"i:o:")
+    ###############################
+    # o == option
+    # a == argument passed to the o
+    ###############################
+    for o, a in myopts:
+        if o == '-memmin':
+            memmin=a
+        elif o == '-memmax':
+            memmax=a
 
 
 # Download the latest version JSON file for Minecraft and see what the latest version is
@@ -71,7 +87,7 @@ def main():
 	if run == 0:
 		print '--- Starting Server.'
 		run = 1
-		command = 'java -jar ' + args + ' ' + mc_server + ' ' + args2
+		command = 'java -jar ' + '-Xms' + memmin + 'G' + '-Xmx' + memmax + 'G' + ' ' + mc_server + ' ' + args2
 		mc = subprocess.Popen(command, shell=True)
 		time.sleep(5)
 		while run == 1:
