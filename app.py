@@ -19,7 +19,6 @@ import argparse
 minecraft_version_url = 'https://s3.amazonaws.com/Minecraft.Download/versions/versions.json'
 check_for_new_versions_frequency = 3600 # every hour
 mc_server = 'minecraft_server.jar' # server file name
-args2 = 'nogui'
 current_ver = ''
 run = 0
 
@@ -33,9 +32,8 @@ def process_args():
 	parser.add_argument("-x", action='store', dest='memmax',
 		help="Sets the minimum/initial memory usage for the Mincraft server in GB (ex: 1, 2, 3, 4)",
 		 type=int, default=1)
+	parser.add_argument("-g", action='store_true', dest='gui', help="Utilize the Minecraft server GUI, default is off")
 	results = parser.parse_args()
-
-	print "---MEMORY - Min: %s Max: %s" % (results.memmin, results.memmax)
    	return
 
 
@@ -87,7 +85,10 @@ def main():
 	if run == 0:
 		print '--- Starting Server.'
 		run = 1
-		command = 'java -jar -Xms' + str(results.memmin) + 'G -Xmx' + str(results.memmax) + 'G ' + mc_server + ' ' + args2
+		command = 'java -jar -Xms' + str(results.memmin) + 'G -Xmx' + str(results.memmax) + 'G ' + mc_server
+		print "results.gui is : " + str(results.gui)
+		if results.gui == False:
+			command += ' nogui'
 		print '--- Using command: ' + command;
 		mc = subprocess.Popen(command, shell=True)
 		time.sleep(5)
