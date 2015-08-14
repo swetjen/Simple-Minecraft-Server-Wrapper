@@ -2,7 +2,7 @@
 
 Simple Minecraft Server Wrapper (SMSW) keeps your server up to date with the latest snapshot version of Minecraft from Mojang.  Its less than 100 lines of code and designed to be super lightweight and simple.
 
-I’ve tested this under Mac OSX.  It should work fine on most line distributions.  Not tested on windows.
+This has been tested successfully on Mac and Windows 7.
 
 If there’s interest from folks I’ll consider updating it with more features.
 
@@ -19,3 +19,7 @@ If there’s interest from folks I’ll consider updating it with more features.
 - Stops the server when a new version is detected and downloads it.
 - Restarts the server and keeps monitoring for new releases.
 - Written in Python!
+
+# Future
+
+- Add command line arguments for Minecraft server memory settings
