@@ -18,7 +18,7 @@ import urllib
 minecraft_version_url = 'https://s3.amazonaws.com/Minecraft.Download/versions/versions.json'
 check_for_new_versions_frequency = 3600 # every hour
 mc_server = 'minecraft_server.jar' # server file name
-args = '-Xmx4028M -Xms4028M'
+args = '-Xmx1024M -Xms1024M'
 args2 = 'nogui'
 current_ver = ''
 run = 0
@@ -31,6 +31,13 @@ def get_version():
 	ver = data["latest"]["snapshot"]
 	print '--- The latest verison of Minecraft Snapshopt is', ver
 	return ver
+
+# TODO - Implement function to determine currently installed version
+# BUG - Program will download new version at start every time
+# Check installed version
+def get_installed_version():
+	return 1
+
 
 # Checks if the latest version matches current version.
 def up_to_date(current_ver):
@@ -64,7 +71,8 @@ def main():
 	if run == 0:
 		print '--- Starting Server.'
 		run = 1
-		mc = subprocess.Popen(['java -jar '+ args + ' ' + mc_server + ' ' + args2], shell=True)
+		command = 'java -jar ' + args + ' ' + mc_server + ' ' + args2
+		mc = subprocess.Popen(command, shell=True)
 		time.sleep(5)
 		while run == 1:
 			print '--- Checking for new versions in ' + str(check_for_new_versions_frequency) + ' seconds.'
