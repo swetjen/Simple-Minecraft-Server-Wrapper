@@ -27,7 +27,8 @@ app.py [-h] [-m MEMMIN] [-x MEMMAX] [-p PATH] [-g] [-d]
 
 - Automatically checks for and downloads the latest snapshot or production version of Minecraft.
 - Starts Minecraft and continually checks for new snapshot or production versions in the background.
-- Allows command line arguments for memory settings, GUI mode, path, and snapshot/production version
+- Allows command line arguments for memory settings, GUI mode, path, and snapshot/production version.
 - Stops the server when a new version is detected and downloads it.
+- Messages in game to let users know that the server is rebooting for maintenance.
 - Restarts the server and keeps monitoring for new releases.
 - Written in Python!
