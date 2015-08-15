@@ -5,8 +5,6 @@
 # it stops the server, downloads the update and restarts with the
 # newest version.
 
-# Test commit dyonak
-
 import time
 import subprocess
 import json
@@ -36,7 +34,6 @@ def process_args():
 	results = parser.parse_args()
    	return
 
-
 # Download the latest version JSON file for Minecraft and see what the latest version is
 def get_version():
 	source = urllib2.urlopen(minecraft_version_url)
@@ -64,7 +61,6 @@ def download_server(version):
 	print "--- Downloading", version
 	jarfile.retrieve("https://s3.amazonaws.com/Minecraft.Download/versions/"+ version + "/minecraft_server." + version + ".jar", mc_server)
 	print "--- Download complete."
-
 
 # Supervisor program
 def main():
