@@ -47,10 +47,6 @@ def get_version():
 
 # TODO - Implement function to determine currently installed version
 # BUG - Program will download new version at start every time
-# Check installed version
-def get_installed_version():
-	return 1
-
 
 # Checks if the latest version matches current version.
 def up_to_date(current_ver):
@@ -83,13 +79,11 @@ def main():
 		download_server(latest_ver)
 		current_ver = latest_ver
 	if run == 0:
-		print '--- Starting Server.'
 		run = 1
 		command = 'java -jar -Xms' + str(results.memmin) + 'G -Xmx' + str(results.memmax) + 'G ' + mc_server
-		print "results.gui is : " + str(results.gui)
 		if results.gui == False:
 			command += ' nogui'
-		print '--- Using command: ' + command;
+		print '--- Starting server with command: ' + command;
 		mc = subprocess.Popen(command, shell=True)
 		time.sleep(5)
 		while run == 1:
