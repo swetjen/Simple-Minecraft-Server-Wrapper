@@ -18,14 +18,17 @@ app.py [-h] [-m MEMMIN] [-x MEMMAX] [-p PATH] [-g] [-d]
 Optional arguments:
 
 -h, --help  show this help message and exit
--m MEMMIN   Sets the minimum/initial memory usage for the Minecraft server
-              in GB (ex: 1, 2, 3, 4)
--x MEMMAX   Sets the minimum/initial memory usage for the Minecraft server
-              in GB (ex: 1, 2, 3, 4)
--p PATH     Set the local path where you want the server downloaded and ran,
-              default is local directory
+
+-m MEMMIN   Sets the minimum/initial memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)
+
+-x MEMMAX   Sets the minimum/initial memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)
+
+-p PATH     Set the local path where you want the server downloaded and ran, default is local directory
+
 -g          Utilize the Minecraft server GUI, default is off
+
 -d          Use development snapshots instead of stable Minecraft releases
+
 
 # Features
 
