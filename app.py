@@ -10,6 +10,7 @@ import json
 import urllib2
 import urllib
 import argparse
+import os
 
 # Global Settings
 
@@ -29,6 +30,7 @@ def process_args():
 	parser.add_argument("-g", action='store_true', dest='gui', help="Utilize the Minecraft server GUI, default is off")
 	parser.add_argument("-d", action='store_true', dest='dev', help="Use development snapshots instead of stable Minecraft releases")
 	results = parser.parse_args()
+	if results.path != '': results.path = os.path.join(results.path, '') # Path handling to include the trailing slash
    	return
 
 
@@ -78,7 +80,8 @@ def main():
 		command = 'java -jar -Xms' + str(results.memmin) + 'G -Xmx' + str(results.memmax) + 'G ' + results.path + mc_server
 		if results.gui == False: command += ' nogui'
 		print '--- Starting server with command: ' + command;
-		mc = subprocess.Popen(command, shell=True, cwd=results.path)
+		if results.path == '':mc = subprocess.Popen(command, shell=True)
+		if results.path != '':mc = subprocess.Popen(command, shell=True, cwd=results.path)
 		time.sleep(5)
 		while run == 1:
 			print '--- Checking for new versions in ' + str(check_for_new_versions_frequency) + ' seconds.'
