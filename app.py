@@ -25,6 +25,7 @@ def process_args():
 	parser = argparse.ArgumentParser(description="Simple Minecraft Server Wrapper")
 	parser.add_argument("-m", action='store', dest='memmin', help="Sets the minimum/initial memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)", type=int, default=1)
 	parser.add_argument("-x", action='store', dest='memmax', help="Sets the minimum/initial memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)", type=int, default=1)
+	parser.add_argument("-p", action='store', dest='path', help="Set the local path where you want the server downloaded and ran, default is local directory", type=str, default='')
 	parser.add_argument("-g", action='store_true', dest='gui', help="Utilize the Minecraft server GUI, default is off")
 	parser.add_argument("-d", action='store_true', dest='dev', help="Use development snapshots instead of stable Minecraft releases")
 	results = parser.parse_args()
@@ -56,7 +57,7 @@ def up_to_date(current_ver):
 def download_server(version):
 	jarfile = urllib.URLopener()
 	print "--- Downloading", version
-	jarfile.retrieve("https://s3.amazonaws.com/Minecraft.Download/versions/"+ version + "/minecraft_server." + version + ".jar", mc_server)
+	jarfile.retrieve("https://s3.amazonaws.com/Minecraft.Download/versions/"+ version + "/minecraft_server." + version + ".jar", results.path + mc_server)
 	print "--- Download complete."
 
 
@@ -74,11 +75,10 @@ def main():
 		current_ver = latest_ver
 	if run == 0:
 		run = 1
-		command = 'java -jar -Xms' + str(results.memmin) + 'G -Xmx' + str(results.memmax) + 'G ' + mc_server
-		if results.gui == False:
-			command += ' nogui'
+		command = 'java -jar -Xms' + str(results.memmin) + 'G -Xmx' + str(results.memmax) + 'G ' + results.path + mc_server
+		if results.gui == False: command += ' nogui'
 		print '--- Starting server with command: ' + command;
-		mc = subprocess.Popen(command, shell=True)
+		mc = subprocess.Popen(command, shell=True, cwd=results.path)
 		time.sleep(5)
 		while run == 1:
 			print '--- Checking for new versions in ' + str(check_for_new_versions_frequency) + ' seconds.'
