@@ -20,4 +20,3 @@ If there’s interest from folks I’ll consider updating it with more features.
 - Stops the server when a new version is detected and downloads it.
 - Restarts the server and keeps monitoring for new releases.
 - Written in Python!
-- Add command line arguments for Minecraft server memory settings
