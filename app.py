@@ -4,13 +4,7 @@
 # every hour it checks for a new snapshot or production release.  If it finds one,
 # it stops the server, downloads the update and restarts with the newest version.
 
-import time
-import subprocess
-import json
-import urllib2
-import urllib
-import argparse
-import os
+import time, subprocess, json, urllib2, urllib, argparse, os
 
 # Global Settings
 
