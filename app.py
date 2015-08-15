@@ -1,11 +1,8 @@
-# Simple Minecraft Server Wrapper for snapshots.
+# Simple Minecraft Server Wrapper for snapshots and production releases.
 # ======
-# Finds the latest snapshot version, downloads and runs it.  Then
-# every hour it checks for a new snapshot release.  If it finds one,
-# it stops the server, downloads the update and restarts with the
-# newest version.
-
-# Test commit dyonak
+# Finds the latest snapshot or production version, downloads and runs it.  Then
+# every hour it checks for a new snapshot or production release.  If it finds one,
+# it stops the server, downloads the update and restarts with the newest version.
 
 import time
 import subprocess
@@ -26,13 +23,10 @@ run = 0
 def process_args():
 	global results
 	parser = argparse.ArgumentParser(description="Simple Minecraft Server Wrapper")
-	parser.add_argument("-m", action='store', dest='memmin',
-		help="Sets the minimum/initial memory usage for the Mincraft server in GB (ex: 1, 2, 3, 4)",
-		 type=int, default=1)
-	parser.add_argument("-x", action='store', dest='memmax',
-		help="Sets the minimum/initial memory usage for the Mincraft server in GB (ex: 1, 2, 3, 4)",
-		 type=int, default=1)
+	parser.add_argument("-m", action='store', dest='memmin', help="Sets the minimum/initial memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)", type=int, default=1)
+	parser.add_argument("-x", action='store', dest='memmax', help="Sets the minimum/initial memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)", type=int, default=1)
 	parser.add_argument("-g", action='store_true', dest='gui', help="Utilize the Minecraft server GUI, default is off")
+	parser.add_argument("-d", action='store_true', dest='dev', help="Use development snapshots instead of stable Minecraft releases")
 	results = parser.parse_args()
    	return
 
@@ -41,8 +35,8 @@ def process_args():
 def get_version():
 	source = urllib2.urlopen(minecraft_version_url)
 	data = json.load(source)
-	ver = data["latest"]["snapshot"]
-	print '--- The latest version of Minecraft Snapshopt is', ver
+	ver = data["latest"]["snapshot"] if results.dev == True else data["latest"]["release"]
+	print '--- The latest version of Minecraft is', ver
 	return ver
 
 # TODO - Implement function to determine currently installed version
