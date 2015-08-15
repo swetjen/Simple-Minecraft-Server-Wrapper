@@ -12,10 +12,8 @@ If there’s interest from folks I’ll consider updating it with more features.
 2. If running the server for the first time, have a correct eula.txt file (accept the license agreement).
 3. From terminal run by typing ‘python app.py’
 
-#Usage
+# Usage
 app.py [-h] [-m MEMMIN] [-x MEMMAX] [-p PATH] [-g] [-d]
-
-Optional arguments:
 
 -h, --help  Show this help message and exit
 -m MEMMIN   Sets the minimum/initial memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)
