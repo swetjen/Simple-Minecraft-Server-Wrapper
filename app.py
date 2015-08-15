@@ -4,7 +4,7 @@
 # every hour it checks for a new snapshot or production release.  If it finds one,
 # it stops the server, downloads the update and restarts with the newest version.
 
-import time, subprocess, json, urllib2, urllib, argparse, os
+import time, subprocess, json, urllib2, urllib, argparse, os, hashlib, pprint
 
 # Global Settings
 
@@ -36,8 +36,10 @@ def get_version():
 	print '--- The latest version of Minecraft is', ver
 	return ver
 
-# TODO - Implement function to determine currently installed version
-# BUG - Program will download new version at start every time
+def installed_version():
+        #current_version = hashlib.md5(results.path + mc_server)
+        #print current_version
+        return current_version
 
 # Checks if the latest version matches current version.
 def up_to_date(current_ver):
@@ -74,14 +76,17 @@ def main():
 		command = 'java -jar -Xms' + str(results.memmin) + 'G -Xmx' + str(results.memmax) + 'G ' + results.path + mc_server
 		if results.gui == False: command += ' nogui'
 		print '--- Starting server with command: ' + command;
-		if results.path == '':mc = subprocess.Popen(command, shell=True)
-		if results.path != '':mc = subprocess.Popen(command, shell=True, cwd=results.path)
+		if results.path == '':mc = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE)
+		if results.path != '':mc = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, cwd=results.path)
 		time.sleep(5)
 		while run == 1:
 			print '--- Checking for new versions in ' + str(check_for_new_versions_frequency) + ' seconds.'
 			time.sleep(check_for_new_versions_frequency)
 			print '--- Checking for a new version...'
+			mc.communicate('say SMSW - Checking for new version...')
 			if up_to_date(current_ver) == False:
+				mc.communicate('say SMSW - New version detected, rebooting for update in 30 seconds...')
+				time.sleep(30)
 				mc.terminate()
 				run = 0
 				time.sleep(5)
