@@ -15,12 +15,12 @@ If there’s interest from folks I’ll consider updating it with more features.
 # Usage
 app.py [-h] [-m MEMMIN] [-x MEMMAX] [-p PATH] [-g] [-d]
 
--h, --help  Show this help message and exit
--m MEMMIN   Sets the minimum/initial memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)
--x MEMMAX   Sets the maximum memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)
--p PATH     Set the local path where you want the server downloaded and ran, default is local directory
--g          Utilize the Minecraft server GUI, default is off
--d          Use development snapshots instead of stable Minecraft releases
+-h, --help  Show this help message and exit\n
+-m MEMMIN   Sets the minimum/initial memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)\n
+-x MEMMAX   Sets the maximum memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)\n
+-p PATH     Set the local path where you want the server downloaded and ran, default is local directory\n
+-g          Utilize the Minecraft server GUI, default is off\n
+-d          Use development snapshots instead of stable Minecraft releases\n
 
 
 # Features
