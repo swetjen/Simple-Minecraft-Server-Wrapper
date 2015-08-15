@@ -58,7 +58,6 @@ def download_server(version):
 	jarfile.retrieve("https://s3.amazonaws.com/Minecraft.Download/versions/"+ version + "/minecraft_server." + version + ".jar", results.path + mc_server)
 	print "--- Download complete."
 
-
 # Supervisor program
 def main():
 	process_args()
@@ -86,6 +85,8 @@ def main():
 			mc.communicate('say SMSW - Checking for new version...')
 			if up_to_date(current_ver) == False:
 				mc.communicate('say SMSW - New version detected, rebooting for update in 30 seconds...')
+				mc.communicate('say SMSW - Sorry for the troubles, have a diamond.')
+				mc.communicate('give @a minecraft:diamond 1')
 				time.sleep(30)
 				mc.terminate()
 				run = 0
