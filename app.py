@@ -19,7 +19,7 @@ def process_args():
 	global results
 	parser = argparse.ArgumentParser(description="Simple Minecraft Server Wrapper")
 	parser.add_argument("-m", action='store', dest='memmin', help="Sets the minimum/initial memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)", type=int, default=1)
-	parser.add_argument("-x", action='store', dest='memmax', help="Sets the minimum/initial memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)", type=int, default=1)
+	parser.add_argument("-x", action='store', dest='memmax', help="Sets the maximum memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)", type=int, default=1)
 	parser.add_argument("-p", action='store', dest='path', help="Set the local path where you want the server downloaded and ran, default is local directory", type=str, default='')
 	parser.add_argument("-g", action='store_true', dest='gui', help="Utilize the Minecraft server GUI, default is off")
 	parser.add_argument("-d", action='store_true', dest='dev', help="Use development snapshots instead of stable Minecraft releases")
