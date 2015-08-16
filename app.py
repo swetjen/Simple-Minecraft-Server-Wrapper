@@ -9,11 +9,7 @@ import time, subprocess, json, urllib2, urllib, argparse, os, hashlib, pprint
 # Global Settings
 
 minecraft_version_url = 'https://s3.amazonaws.com/Minecraft.Download/versions/versions.json'
-<<<<<<< HEAD
-check_for_new_versions_frequency = 60 # every hour
-=======
-check_for_new_versions_frequency = 600 # every hour
->>>>>>> origin/master
+check_for_new_versions_frequency = 3600 # every hour
 mc_server = 'minecraft_server.jar' # server file name
 current_ver = ''
 run = 0
@@ -61,13 +57,6 @@ def download_server(version):
 	print "--- Downloading", version
 	jarfile.retrieve("https://s3.amazonaws.com/Minecraft.Download/versions/"+ version + "/minecraft_server." + version + ".jar", results.path + mc_server)
 	print "--- Download complete."
-
-def heartbeat(seconds):
-	for each in range(seconds):
-		print 'tick'
-		time.sleep(1)
-		print 'tock'
-	return
 
 # Supervisor program
 def main():
