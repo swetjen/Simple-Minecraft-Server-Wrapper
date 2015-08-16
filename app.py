@@ -9,7 +9,7 @@ import time, subprocess, json, urllib2, urllib, argparse, os, hashlib, pprint
 # Global Settings
 
 minecraft_version_url = 'https://s3.amazonaws.com/Minecraft.Download/versions/versions.json'
-check_for_new_versions_frequency = 60 # every hour
+check_for_new_versions_frequency = 3600 # every hour
 mc_server = 'minecraft_server.jar' # server file name
 current_ver = ''
 run = 0
@@ -80,16 +80,17 @@ def main():
 		time.sleep(5)
 		while run == 1:
 			print '--- Checking for new versions in ' + str(check_for_new_versions_frequency) + ' seconds.'
+			time.sleep(check_for_new_versions_frequency)
 			print '--- Checking for a new version...'
 			mc.stdin.write('say SMSW - Checking for new version...\n')
 			mc.stdin.flush()
 			if up_to_date(current_ver) == False:
 				mc.stdin.write('say SMSW - New version detected, rebooting for update in 30 seconds...\n')
-                                mc.stdin.flush()
+				mc.stdin.flush()
 				mc.stdin.write('say SMSW - Sorry for the troubles, have a diamond.\n')
-                                mc.stdin.flush()
+				mc.stdin.flush()
 				mc.stdin.write('give @a minecraft:diamond 5\n')
-                                mc.stdin.flush()
+				mc.stdin.flush()
 				time.sleep(30)
 				mc.terminate()
 				run = 0
