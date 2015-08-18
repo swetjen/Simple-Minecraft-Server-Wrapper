@@ -74,7 +74,7 @@ def main():
 		run = 1
 		command = 'java -jar -Xms' + str(results.memmin) + 'G -Xmx' + str(results.memmax) + 'G ' + results.path + mc_server
 		if results.gui == False: command += ' nogui'
-		print '--- Starting server with command: ' + command;
+		print '--- Starting server with command: ' + command
 		if results.path == '':mc = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE)
 		if results.path != '':mc = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, cwd=results.path)
 		time.sleep(5)
