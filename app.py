@@ -83,6 +83,9 @@ def main():
         while server.online:
             print '--- Checking for new versions in ' + str(check_for_new_versions_frequency) + ' seconds.'
             time.sleep(check_for_new_versions_frequency)
+            if server.crash_check():
+                del server
+                main()
             print '--- Checking for a new version...'
             server.message('Checking for a new version...')
             # Checking for new version

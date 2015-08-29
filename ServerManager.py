@@ -21,7 +21,6 @@ class ServerManager(object):
         else:
             self.process = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, cwd=self.path)
         self.online = True
-        print self.process
 
     def shutdown(self):
         self.message('New version detected, server will be shutting down for maintenance in 1 minute.')
@@ -37,9 +36,15 @@ class ServerManager(object):
         self.process.terminate()
         time.sleep(5)
 
+    def crash_check(self):
+        self.process.poll()
+        if self.process.returncode == 1:
+            return True
+        else:
+            return False
+
     # Server chat can be passed as ServerManager.message('hello')
     def message(self, message, command=False):
-        print self.process
         if not command:
             self.process.stdin.write('say ### SMSW Message: \n')
             self.process.stdin.flush()
