@@ -10,7 +10,7 @@ from ServerManager import ServerManager
 # Global Settings
 
 minecraft_version_url = 'https://s3.amazonaws.com/Minecraft.Download/versions/versions.json'
-check_for_new_versions_frequency = 20  # every hour
+check_for_new_versions_frequency = 3600  # every hour
 mc_server = 'minecraft_server.jar'  # server file name
 current_ver = ''
 run = 0
@@ -74,7 +74,7 @@ def main():
     print '* Simple Minecraft Server Wrapper'
     print '*' * 40
     latest_ver = str(get_version())
-    if current_ver == latest_ver:
+    if current_ver != latest_ver:
         download_server(latest_ver)
         current_ver = latest_ver
     if not server.online:
