@@ -9,10 +9,10 @@ class ServerManager:
         self.xms = xms
         self.xmx = xmx
         self.gui = gui
+        self.process = None
 
 
     def start(self):
-        global process
         command = 'java -jar -Xms' + str(self.xms) + 'G -Xmx' + str(self.xmx) + 'G ' + self.path + self.server_file
         if self.gui == False: command += ' nogui'
         print command
