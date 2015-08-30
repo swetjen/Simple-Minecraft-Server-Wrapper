@@ -10,10 +10,9 @@ from ServerManager import ServerManager
 # Global Settings
 
 minecraft_version_url = 'https://s3.amazonaws.com/Minecraft.Download/versions/versions.json'
-check_for_new_versions_frequency = 3600  # every hour
+check_for_new_versions_frequency = 20  # every hour
 mc_server = 'minecraft_server.jar'  # server file name
 current_ver = ''
-run = 0
 
 
 # Process command line arguments for memory settings
@@ -45,6 +44,7 @@ def get_version():
     print '--- The latest version of Minecraft is', ver
     return ver
 
+
 # Checks if the latest version matches current version.
 def up_to_date(current_ver):
     temp_ver = str(get_version())
@@ -55,6 +55,7 @@ def up_to_date(current_ver):
         print '--- Up to date.'
         return True
 
+
 # Downloads and saves the latest minecraft server.
 def download_server(version):
     jarfile = urllib.URLopener()
@@ -64,12 +65,12 @@ def download_server(version):
         results.path + mc_server)
     print "--- Download complete."
 
+
 # Supervisor program
 def main():
     process_args()
     server = ServerManager(results.path, mc_server, results.memmin, results.memmax, results.gui)
     global current_ver
-    global run
     print '*' * 40
     print '* Simple Minecraft Server Wrapper'
     print '*' * 40
@@ -97,6 +98,7 @@ def main():
                 time.sleep(5)
                 print '--- Server stopped'
                 main()
+
 
 # Start when run.
 if __name__ == '__main__':

@@ -38,9 +38,11 @@ class ServerManager(object):
 
     def crash_check(self):
         self.process.poll()
-        if self.process.returncode == 1:
+        if self.process.returncode in (0, 1):
+            print self.process.returncode
             return True
         else:
+            print self.process.returncode
             return False
 
     # Server chat can be passed as ServerManager.message('hello')
