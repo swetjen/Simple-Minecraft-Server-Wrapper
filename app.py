@@ -19,28 +19,30 @@ current_ver = ''
 def process_args():
     global results
     parser = argparse.ArgumentParser(description="Simple Minecraft Server Wrapper")
-    parser.add_argument("-m", action='store', dest='memmin',
-                        help="Sets the minimum/initial memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)",
-                        type=int, default=1)
-    parser.add_argument("-x", action='store', dest='memmax',
-                        help="Sets the maximum memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)", type=int,
-                        default=1)
-    parser.add_argument("-p", action='store', dest='path',
-                        help="Set the local path where you want the server downloaded and ran, default is local directory",
-                        type=str, default='')
-    parser.add_argument("-g", action='store_true', dest='gui', help="Utilize the Minecraft server GUI, default is off")
-    parser.add_argument("-d", action='store_true', dest='dev',
-                        help="Use development snapshots instead of stable Minecraft releases")
+    parser.add_argument("-m", action='store', dest='memmin', help="Set the minimum memory for Minecraft in GB (ex: 1, 2, 3, 4).  Default is 1.", type=int, default=1)
+    parser.add_argument("-x", action='store', dest='memmax', help="Set the maximum memory for Minecraft in GB (ex: 1, 2, 3, 4).  Default is 1.", type=int, default=1)
+    parser.add_argument("-p", action='store', dest='path', help="Specify another directory to run the server.", type=str, default='')
+    parser.add_argument("-g", action='store_true', dest='gui', help="   Utilize the Minecraft server GUI.  Default is off")
+    parser.add_argument("-s", action='store_true', dest='stable', help="Use stable release of Minecraft instead of development snapshots.")
     results = parser.parse_args()
     if results.path != '': results.path = os.path.join(results.path, '')  # Path handling to include the trailing slash
     return
 
 
+
+# Download the latest version JSON file for Minecraft and see what the latest version is
+def get_version():
+	source = urllib2.urlopen(minecraft_version_url)
+	data = json.load(source)
+	ver = data["latest"]["snapshot"] if results.stable == False else data["latest"]["release"]
+	logpr('--- The latest version of Minecraft is', ver)
+	return ver
+
 # Download the latest version JSON file for Minecraft and see what the latest version is
 def get_version():
     source = urllib2.urlopen(minecraft_version_url)
     data = json.load(source)
-    ver = data["latest"]["snapshot"] if results.dev == True else data["latest"]["release"]
+    ver = data["latest"]["snapshot"] if results.stable == False else data["latest"]["release"]
     print '--- The latest version of Minecraft is', ver
     return ver
 
