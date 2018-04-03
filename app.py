@@ -4,7 +4,7 @@
 # every hour it checks for a new snapshot or production release.  If it finds one,
 # it stops the server, downloads the update and restarts with the newest version.
 
-import time, subprocess, json, urllib2, urllib, argparse, os, hashlib, pprint
+import time, json, urllib2, urllib, argparse, os, random
 from ServerManager import ServerManager
 
 # Global Settings
@@ -14,7 +14,7 @@ check_for_new_versions_frequency = 3600  # every hour
 mc_server = 'minecraft_server.jar'  # server file name
 current_ver = ''
 
-
+#test
 # Process command line arguments for memory settings
 def process_args():
     global results
@@ -31,6 +31,7 @@ def process_args():
     parser.add_argument("-g", action='store_true', dest='gui', help="Utilize the Minecraft server GUI, default is off")
     parser.add_argument("-d", action='store_true', dest='dev',
                         help="Use development snapshots instead of stable Minecraft releases")
+    parser.add_argument("-r", action='store_true', dest='raffle', help="Occasionally rewards server players.")
     results = parser.parse_args()
     if results.path != '': results.path = os.path.join(results.path, '')  # Path handling to include the trailing slash
     return
@@ -98,6 +99,25 @@ def main():
                 time.sleep(5)
                 print '--- Server stopped'
                 main()
+            else:
+                server.message('No new version detected.')
+                if results.raffle:
+                    time.sleep(3)
+                    server.message('Calculating merit based rewards...')
+                    raffle_chance = random.randint(1, 10)
+                    if raffle_chance in (1, 2, 3, 4, 5):
+                        time.sleep(3)
+                        server.message('Sorry, maybe next time.')
+                    elif raffle_chance == 6:
+                        server.message('give @a minecraft:diamond 10', True)
+                    elif raffle_chance == 7:
+                        server.message('give @a minecraft:coal_block 10', True)
+                    elif raffle_chance == 8:
+                        server.message('give @a minecraft:cake 1', True)
+                    elif raffle_chance == 9:
+                        server.message('give @a minecraft:cooked_beef 64', True)
+                    elif raffle_chance == 10:
+                        server.message('give @a minecraft:rabbit_foot 1', True)
 
 
 # Start when run.
