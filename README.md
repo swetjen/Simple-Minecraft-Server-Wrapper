@@ -20,7 +20,7 @@ app.py [-h] [-m MEMMIN] [-x MEMMAX] [-p PATH] [-g] [-d]
 -x MEMMAX   Sets the maximum memory usage for the Minecraft server in GB (ex: 1, 2, 3, 4)<br />
 -p PATH     Set the local path where you want the server downloaded and ran, default is local directory<br />
 -g          Utilize the Minecraft server GUI, default is off<br />
--d          Use development snapshots instead of stable Minecraft releases<br />
+-s          Use stable releases instead of Minecraft snapshot releases<br />
 
 
 # Features
