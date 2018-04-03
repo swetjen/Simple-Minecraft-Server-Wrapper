@@ -14,7 +14,6 @@ check_for_new_versions_frequency = 3600  # every hour
 mc_server = 'minecraft_server.jar'  # server file name
 current_ver = ''
 
-#test
 # Process command line arguments for memory settings
 def process_args():
     global results
